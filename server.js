@@ -36,6 +36,9 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/stories", storyRoutes);
 
 // ✅ Don’t serve frontend here since you’ll deploy it on Vercel
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
 
 // ✅ Start server and connect DB
 app.listen(PORT, () => {
