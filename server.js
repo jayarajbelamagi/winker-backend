@@ -24,26 +24,21 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
-app.use(express.json({ limit: "5mb" })); // to parse req.body
-// limit shouldn't be too high to prevent DOS
-app.use(express.urlencoded({ extended: true })); // to parse form data(urlencoded)
-
+app.use(express.json({ limit: "5mb" })); 
+app.use(express.urlencoded({ extended: true })); 
 app.use(cookieParser());
 
+// API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/stories", storyRoutes);
 
-//if(process.env.NODE_ENV === "production") {
-	//app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// ✅ Don’t serve frontend here since you’ll deploy it on Vercel
 
-	//app.get("*", (req, res) => {
-	//	res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-	//});
-//}
-//app.listen(PORT, () => {
-	//console.log(`Server is running on port ${PORT}`);
-	//connectMongoDB();
-//});
+// ✅ Start server and connect DB
+app.listen(PORT, () => {
+	console.log(`Server is running on port ${PORT}`);
+	connectMongoDB();
+});
